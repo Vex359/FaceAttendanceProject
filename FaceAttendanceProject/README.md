@@ -1,61 +1,89 @@
-# Face Attendance Project
+# Face Attendance Tracker
 
-A face recognition-based attendance tracking system built with Python and OpenCV.
+A face recognition-based attendance system built with Python, OpenCV, and Tkinter. Automatically detects and recognizes faces to mark attendance.
 
 ## Features
 
-- **Register new faces** - Capture and store face images using your webcam
-- **Automatic attendance tracking** - Recognizes known faces and logs attendance
-- **CSV export** - Attendance records saved with name and timestamp
-- **Pause/Continue scanning** - Avoid duplicate entries with manual control
+- **Two Interface Modes**: CLI (terminal) and GUI (graphical)
+- **Face Registration**: Capture and store face images via webcam
+- **Face Recognition**: Automatically identifies registered faces
+- **Attendance Logging**: Records name and timestamp to CSV
+- **View Attendance**: Display records in a table format
+- **Clear Logs**: Reset attendance records
 
 ## Requirements
 
 - Python 3.8+
-- OpenCV
+- OpenCV (`opencv-python`)
 - NumPy
+- Pandas (for GUI)
+- Tkinter (included with Python)
 
 Install dependencies:
 ```bash
-pip install opencv-python numpy
+pip install opencv-python numpy pandas
 ```
 
 ## Project Structure
 
 ```
 FaceAttendanceProject/
-├── main.py              # Main script
-├── ui.py                # UI components
-├── attendance.csv       # Attendance logs (auto-generated)
-├── known_faces/         # Face images for recognition
-└── README.md            # This file
+├── main.py              # CLI version
+├── ui.py                # GUI version (Tkinter)
+├── attendance.csv       # Attendance logs
+├── known_faces/         # Registered face images
+└── README.md
 ```
 
-## Usage
+## How to Run
 
-1. Run the program:
-   ```bash
-   python main.py
-   ```
+### GUI Mode (Recommended)
+```bash
+python ui.py
+```
 
-2. Menu options:
-   - Press `1` → Register a new face
-   - Press `2` → Start attendance tracking
+### CLI Mode
+```bash
+python main.py
+```
 
-3. During tracking:
-   - Press `c` to continue scanning after detection
-   - Press `q` to quit
+## GUI Controls
+
+- **Register Face**: Click → Enter name → Press 's' to capture
+- **Track Attendance**: Opens camera, auto-marks when face recognized
+- **View Attendance Log**: Shows all records in a table
+- **Clear Attendance Log**: Deletes all records (with confirmation)
+
+## CLI Controls
+
+### Main Menu
+- Press `1` → Register a new face
+- Press `2` → Track attendance
+
+### Attendance Mode
+- Press `p` → Pause scanning
+- Press `c` → Continue scanning
+- Press `q` → Quit
 
 ## How It Works
 
-1. Place known face images in `known_faces/` folder (naming the file as the person's name)
-2. When running attendance mode, the system compares detected faces against known faces
-3. Matched faces are logged to `attendance.csv` with timestamp
+1. **Face Detection**: Uses Haar Cascade classifiers for face detection
+2. **Face Recognition**: Compares detected faces against stored images using pixel difference
+3. **Attendance Logging**: When a face is recognized, records name + timestamp to `attendance.csv`
 
-## Example attendance.csv
+## Face Registration
 
-```
+Name the image file as the person's name (e.g., `John.jpg`). The system will match based on the filename.
+
+## Sample Output
+
+**attendance.csv**:
+```csv
 Name,Timestamp
-Aayush,2025-08-30 15:22:11
-John,2025-08-30 15:24:05
+John,2025-08-30 15:22:11
+Alice,2025-08-30 15:24:05
 ```
+
+## License
+
+MIT
